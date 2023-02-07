@@ -15,7 +15,7 @@ class CreateDataDirisTable extends Migration
     {
         Schema::create('data_diris', function (Blueprint $table) {
             $table->id();
-            $table->string('id_daftar');
+            $table->string('id_daftar')->unique()->nullable(false);
             $table->string('nama');
             $table->enum('jenis_kelamin', ['laki-laki', 'perempuan']);
             $table->string('nisn');
