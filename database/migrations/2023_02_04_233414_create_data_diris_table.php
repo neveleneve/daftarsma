@@ -15,7 +15,9 @@ class CreateDataDirisTable extends Migration
     {
         Schema::create('data_diris', function (Blueprint $table) {
             $table->id();
+            $table->string('id_user')->nullable(false);
             $table->string('id_daftar')->unique()->nullable(false);
+            $table->string('tahunajaran');
             $table->string('nama');
             $table->enum('jenis_kelamin', ['laki-laki', 'perempuan']);
             $table->string('nisn');
@@ -23,8 +25,9 @@ class CreateDataDirisTable extends Migration
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->string('no_reg_akta_kelahiran');
-            $table->string('agama');
+            $table->enum('agama', ['islam', 'katolik', 'protestan', 'buddha', 'hindu']);
             $table->enum('kebutuhan_khusus', ['ya', 'tidak']);
+            $table->enum('verifikasi', [0, 1]);
             $table->timestamps();
         });
     }

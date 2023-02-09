@@ -2,15 +2,21 @@
     @push('blade')
         @include('layouts.usernav')
     @endpush
-    <div class="row justify-content-center mb-0 mb-md-3">
-        <div class="col-12 col-md-4 mb-3 mb-md-0">
-            <input type="text" class="form-control" placeholder="Pencarian..." wire:model='pencarian'>
+    <div class="row justify-content-center my-3">
+        <div class="col-12 col-md-5">
+            <label for="tahunajar" class="fw-bold">Tahun Ajaran</label>
+            <select id="tahunajar" class="form-select mb-3 mb-md-0" wire:model='tahunajaranselected'>
+                <option disabled>Pilih Tahun Ajaran</option>
+                @for ($i = 0; $i < count($tahunajaran); $i++)
+                    <option {{ $i == 0 ? 'selected' : null }} value="{{ $tahunajaran[$i] }}">
+                        {{ $tahunajaran[$i] }}
+                    </option>
+                @endfor
+            </select>
         </div>
-        <div class="col-12 col-md-2"></div>
-        <div class="col-12 col-md-4 mb-3 mb-md-0 d-grid gap-2">
-            <button class="btn btn-sm btn-primary fw-bold" data-bs-toggle="modal" data-bs-target="#tambahcasis">
-                Tambah Calon Siswa
-            </button>
+        <div class="col-12 col-md-5 mb-3 mb-md-0">
+            <label for="pencarian" class="fw-bold">Pencarian</label>
+            <input id="pencarian" type="text" class="form-control" placeholder="Pencarian..." wire:model='pencarian'>
         </div>
     </div>
     @if (session()->has('message'))
@@ -28,8 +34,9 @@
                 <thead class="table-primary">
                     <tr>
                         <th>No</th>
+                        <th>ID Pendaftaran</th>
                         <th>Nama</th>
-                        <th>Username</th>
+                        <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -37,11 +44,12 @@
                     @forelse ($datacasis as $item)
                         <tr>
                             <td>{{ $loop->index + 1 }}</td>
-                            <td>{{ ucwords(strtolower($item->name)) }}</td>
-                            <td>{{ $item->username }}</td>
+                            <td>{{ $item->id_daftar }}</td>
+                            <td>{{ ucwords(strtolower($item->nama)) }}</td>
+                            <td>{{ $item->verifikasi == '0' ? 'Belum Verifkasi' : 'Sudah Verifikasi' }}</td>
                             <td>
-                                <button class="btn btn-sm btn-warning fw-bold" wire:loading.attr='disabled'
-                                    wire:click='viewData({{ $item->id }})'>
+                                <button class="btn btn-sm btn-warning fw-bold"
+                                    wire:click='redirecting("siswaview", "{{ $item->id_daftar }}")'>
                                     <span class="d-none d-md-inline">
                                         View
                                     </span>
@@ -51,7 +59,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4">
+                            <td colspan="5">
                                 <h3 class="fw-bold">Data Calon Siswa</h3>
                             </td>
                         </tr>
@@ -60,51 +68,6 @@
             </table>
         </div>
     </div>
-
-    <div wire:ignore.self class="modal fade" id="tambahcasis" data-bs-backdrop="static" role="dialog">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title fw-bold">Tambah Calon Siswa</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click='eraseText'></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <label for="iddaftar" class="fw-bold">ID Pendaftaran</label>
-                            <input type="text" class="form-control mb-3" placeholder="ID Pendaftaran" id="iddaftar"
-                                wire:model='casisadd.id_daftar' readonly>
-                            <label for="nama" class="fw-bold">Nama Calon Siswa</label>
-                            <input type="text" class="form-control mb-3" placeholder="Nama Calon Siswa"
-                                id="nama" wire:model.lazy='casisadd.nama'>
-                            <label for="jeniskelamin" class="fw-bold">Jenis Kelamin</label>
-                            <select id="jeniskelamin" class="form-select mb-3" wire:model.lazy='casisadd.kelamin'>
-                                <option selected hidden>Pilih Jenis Kelamin</option>
-                                <option value="laki-laki">Laki-laki</option>
-                                <option value="perempuan">Perempuan</option>
-                            </select>
-                            <label for="nik" class="fw-bold">NIK Calon Siswa</label>
-                            <input type="text" class="form-control mb-3" placeholder="NIK Calon Siswa" id="nik"
-                                wire:model.lazy='casisadd.nik'>
-                            <label for="nisn" class="fw-bold">NISN Calon Siswa</label>
-                            <input type="text" class="form-control mb-3" placeholder="NISN Calon Siswa"
-                                id="nisn" wire:model.lazy='casisadd.nisn'>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-primary fw-bold" data-bs-dismiss="modal"
-                        wire:click='eraseText'>
-                        Tutup
-                    </button>
-                    <button type="button" class="btn btn-primary fw-bold" data-bs-dismiss="modal" wire:click='store'>
-                        Simpan
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     @push('js')
         <script>
             Livewire.on('alertremove', () => {

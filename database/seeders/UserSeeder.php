@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
         User::insert([
             [
                 'name' => 'Super Administrator',
+                'email' => 'superadministrator@gmail.com',
                 'username' => 'superadministrator',
                 'password' => Hash::make('12345678'),
                 'level' => '2',
@@ -26,6 +27,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => 'Administrator',
+                'email' => 'administrator@gmail.com',
                 'username' => 'administrator',
                 'password' => Hash::make('12345678'),
                 'level' => '1',
@@ -34,6 +36,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => 'Ahmad Andian',
+                'email' => 'madandian@gmail.com',
                 'username' => 'madandian',
                 'password' => Hash::make('12345678'),
                 'level' => '0',

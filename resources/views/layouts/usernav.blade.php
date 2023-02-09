@@ -18,7 +18,7 @@
                 @endlevel
                 <li class="nav-item">
                     <a class="nav-link{{ Request::is('daftar-siswa*') ? ' active fw-bold' : ' text-dark' }}"
-                        href="{{ route('siswa') }}">Daftar Siswa</a>
+                        href="{{ route('siswa') }}">Daftar Calon Siswa</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link{{ Request::is('laporan*') ? ' active fw-bold' : ' text-dark' }}"
