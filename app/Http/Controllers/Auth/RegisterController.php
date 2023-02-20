@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\UserDaftar;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -32,7 +33,11 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
-        // dd($data);
+        UserDaftar::insert([
+            'username' => $data['username'],
+            'id_daftar' => $this->randomString(),
+            'tahun_ajaran' => $this->tahunajaran(),
+        ]);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -40,5 +45,24 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'level' => '0',
         ]);
+    }
+
+    public function randomString($len = 10)
+    {
+        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randstring = '';
+        for ($i = 0; $i < $len; $i++) {
+            $randstring .= $characters[rand(0, strlen($characters) - 1)];
+        }
+        return $randstring;
+    }
+
+    public function tahunajaran()
+    {
+        if (date('n') > 5) {
+            return (date('Y') + 1) . '-' . (date('Y') + 2);
+        } else {
+            return date('Y') . '-' . (date('Y') + 1);
+        }
     }
 }

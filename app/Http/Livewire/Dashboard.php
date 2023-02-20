@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\DataDiri;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Dashboard extends Component
@@ -14,8 +15,16 @@ class Dashboard extends Component
 
     public function render()
     {
-        $this->pendaftar = DataDiri::where('tahunajaran', $this->tahunajaranselected)->count();
-        $this->verifikasi = DataDiri::where('tahunajaran', $this->tahunajaranselected)->where('verifikasi', '1')->count();
+        $this->pendaftar = DB::table('data_diris')
+            ->join('user_daftars', 'data_diris.id_user_daftar', '=', 'user_daftars.id')
+            ->where('user_daftars.tahun_ajaran', $this->tahunajaranselected)
+            ->count();
+        $this->verifikasi = DB::table('data_diris')
+            ->join('user_daftars', 'data_diris.id_user_daftar', '=', 'user_daftars.id')
+            ->where('user_daftars.tahun_ajaran', $this->tahunajaranselected)
+            ->where('data_diris.verifikasi', '1')
+            ->count();
+
         return view('livewire.dashboard')
             ->extends('layouts.livewire');
     }

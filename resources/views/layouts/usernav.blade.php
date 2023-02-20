@@ -7,6 +7,10 @@
             </li>
 
             @level('casis')
+                <li class="nav-item">
+                    <a class="nav-link{{ Request::is('pendaftaran*') ? ' active fw-bold' : ' text-dark' }}"
+                        href="{{ route('pendaftaran') }}">Pendaftaran</a>
+                </li>
             @endlevel
 
             @level('alladmin')

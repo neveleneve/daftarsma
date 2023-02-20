@@ -5,7 +5,7 @@
     @if (Auth::user()->level == '0')
         <div class="row justify-content-center mb-3">
             <div class="row justify-content-center mb-0 mb-md-3">
-                <div class="col-12 mb-3 mb-md-0">
+                <div class="col-10 mb-3 mb-md-0">
                     <div class="card">
                         <div class="card-header bg-primary text-light">
                             <h5 class="fw-bold">Jumlah Pendaftar Calon Siswa T.A. {{ $tahunajaranselected }}</h5>

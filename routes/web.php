@@ -30,5 +30,6 @@ Route::middleware(['auth', 'alladmin'])->group(function () {
 });
 
 Route::middleware(['auth', 'casis'])->group(function () {
-    # next route
+    Route::get('pendaftaran', App\Http\Livewire\Pendaftaran::class)
+        ->name('pendaftaran');
 });

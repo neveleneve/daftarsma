@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDataWalisTable extends Migration
+class CreateUserDaftarsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateDataWalisTable extends Migration
      */
     public function up()
     {
-        Schema::create('data_walis', function (Blueprint $table) {
+        Schema::create('user_daftars', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_user_daftar')->unique()->nullable(false);
+            $table->string('username');
+            $table->string('id_daftar');
+            $table->string('tahun_ajaran');
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateDataWalisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data_walis');
+        Schema::dropIfExists('user_daftars');
     }
 }
