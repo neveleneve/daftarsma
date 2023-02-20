@@ -4,6 +4,7 @@
     @endpush
     <div class="row justify-content-center my-3">
         <div class="col-12 col-md-10">
+            {{-- data pendaftaran --}}
             <div class="card mb-3">
                 <div class="card-header bg-primary text-light">
                     <h4 class="fw-bold text-center">Data Pendaftaran Calon Siswa</h4>
@@ -37,6 +38,7 @@
                     </div>
                 </div>
             </div>
+            {{-- data diri casis --}}
             <div class="card">
                 <div class="card-header bg-primary text-light">
                     <h4 class="fw-bold text-center">Data Diri Calon Siswa</h4>
@@ -113,6 +115,12 @@
                     </div>
                 </div>
             </div>
+            {{-- data ayah casis --}}
+
+            {{-- data ibu casis --}}
+
+            {{-- data wali casis --}}
+
         </div>
     </div>
 </div>
