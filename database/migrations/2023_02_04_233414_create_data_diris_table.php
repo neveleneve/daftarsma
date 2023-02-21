@@ -23,6 +23,7 @@ class CreateDataDirisTable extends Migration
             $table->string('tempat_lahir')->nullable(true);
             $table->date('tanggal_lahir')->nullable(true);
             $table->string('no_reg_akta_kelahiran')->nullable(true);
+            $table->string('alamat')->nullable(true);
             $table->enum('agama', ['islam', 'katolik', 'protestan', 'buddha', 'hindu'])->nullable(true);
             $table->enum('kebutuhan_khusus', ['ya', 'tidak'])->nullable(true);
             $table->enum('tinggal_bersama_ortu', ['ya', 'tidak'])->nullable(true);

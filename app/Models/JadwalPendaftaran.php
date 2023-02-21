@@ -5,13 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserDaftar extends Model
+class JadwalPendaftaran extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'username',
-        'id_daftar',
-        'tahun_ajaran'
-    ];
 }

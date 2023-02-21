@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\DataAyah;
+use App\Models\DataDiri;
+use App\Models\DataIbu;
+use App\Models\DataWali;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\UserDaftar;
@@ -33,10 +37,22 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
-        UserDaftar::insert([
+        $userdaftar = UserDaftar::create([
             'username' => $data['username'],
             'id_daftar' => $this->randomString(),
             'tahun_ajaran' => $this->tahunajaran(),
+        ]);
+        DataDiri::insert([
+            'id_user_daftar' => $userdaftar->id
+        ]);
+        DataAyah::insert([
+            'id_user_daftar' => $userdaftar->id
+        ]);
+        DataIbu::insert([
+            'id_user_daftar' => $userdaftar->id
+        ]);
+        DataWali::insert([
+            'id_user_daftar' => $userdaftar->id
         ]);
         return User::create([
             'name' => $data['name'],

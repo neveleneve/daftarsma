@@ -15,6 +15,12 @@ class CreateDataIbusTable extends Migration
     {
         Schema::create('data_ibus', function (Blueprint $table) {
             $table->id();
+            $table->integer('id_user_daftar')->unique()->nullable(false);
+            $table->string('nama')->nullable(true);
+            $table->string('nik')->nullable(true);
+            $table->string('pendidikan')->nullable(true);
+            $table->string('pekerjaan')->nullable(true);
+            $table->string('alamat')->nullable(true);
             $table->timestamps();
         });
     }
