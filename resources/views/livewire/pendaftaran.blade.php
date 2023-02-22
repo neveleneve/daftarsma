@@ -130,11 +130,6 @@
                                 Simpan Data Diri
                             </button>
                         </div>
-                        <pre>
-                            @php
-                                print_r($datadiri);
-                            @endphp
-                        </pre>
                     </div>
                 </div>
             </div>
@@ -178,7 +173,7 @@
                                 wire:model='dataayah.pekerjaan' placeholder="Pekerjaan">
                         </div>
                         <div class="col-12 col-md-4 mb-3">
-                            <label for="penghasilanayah" class="fw-bold">Penghasilan</label>
+                            <label for="penghasilanayah" class="fw-bold">Penghasilan per Bulan</label>
                             <select id="penghasilanayah" class="form-select" wire:model='dataayah.penghasilan'>
                                 <option value="" selected hidden>Pilih Berpenghasilan</option>
                                 <option value="tidak ada">Tidak Ada</option>
@@ -193,15 +188,10 @@
                             <textarea id="alamatayah" class="form-control" rows="3" placeholder="Alamat" wire:model='dataayah.alamat'></textarea>
                         </div>
                         <div class="col-12 d-grid gap-2">
-                            <button class="btn btn-primary fw-bold">
+                            <button class="btn btn-primary fw-bold" wire:click='storeDataOrtu(1)'>
                                 Simpan Data Ayah
                             </button>
                         </div>
-                        <pre>
-                            @php
-                                print_r($dataayah);
-                            @endphp
-                        </pre>
                     </div>
                 </div>
             </div>
@@ -212,41 +202,129 @@
                     <h4 class="fw-bold text-center">Data Ibu</h4>
                 </div>
                 <div class="card-body">
-                    <div class="col-12 d-grid gap-2">
-                        <button class="btn btn-primary fw-bold">
-                            Simpan Data Ibu
-                        </button>
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3">
+                            <label for="namaibu" class="fw-bold">Nama Lengkap</label>
+                            <input type="text" id="namaibu" class="form-control" placeholder="Nama Lengkap"
+                                wire:model='dataibu.nama'>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <label for="nikibu" class="fw-bold">Nomor Induk Kependudukan</label>
+                            <input type="text" id="nikibu" class="form-control" maxlength="16"
+                                onkeypress="return isNumber(event)" wire:model='dataibu.nik'
+                                placeholder="Nomor Induk Kependudukan">
+                        </div>
+                        <div class="col-12 col-md-4 mb-3">
+                            <label for="pendidikanibu" class="fw-bold">Pendidikan Terakhir</label>
+                            <select id="pendidikanibu" class="form-select" wire:model='dataibu.pendidikan'>
+                                <option value="" selected hidden>Pilih Pendidikan Terakhir</option>
+                                <option value="tidak sekolah">Tidak Pernah Sekolah</option>
+                                <option value="sd">SD</option>
+                                <option value="smp">SMP</option>
+                                <option value="sma">SMA</option>
+                                <option value="d1">D1</option>
+                                <option value="d3">D3</option>
+                                <option value="s1">S1</option>
+                                <option value="s2">S2</option>
+                                <option value="s3">S3</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-4 mb-3">
+                            <label for="pekerjaanibu" class="fw-bold">Pekerjaan</label>
+                            <input type="text" id="pekerjaanibu" class="form-control"
+                                wire:model='dataibu.pekerjaan' placeholder="Pekerjaan">
+                        </div>
+                        <div class="col-12 col-md-4 mb-3">
+                            <label for="penghasilanibu" class="fw-bold">Penghasilan per Bulan</label>
+                            <select id="penghasilanibu" class="form-select" wire:model='dataibu.penghasilan'>
+                                <option value="" selected hidden>Pilih Berpenghasilan</option>
+                                <option value="tidak ada">Tidak Ada</option>
+                                <option value="<500k">Dibawah Rp 500.000</option>
+                                <option value="500k-1.5jt">Rp 500.000 - Rp 1.499.000</option>
+                                <option value="1.5jt-3jt">Rp 1.500.000 - Rp 3.000.000</option>
+                                <option value=">3jt">Diatas 3.000.000</option>
+                            </select>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="alamatibu" class="fw-bold">Alamat</label>
+                            <textarea id="alamatibu" class="form-control" rows="3" placeholder="Alamat" wire:model='dataibu.alamat'></textarea>
+                        </div>
+                        <div class="col-12 d-grid gap-2">
+                            <button class="btn btn-primary fw-bold" wire:click='storeDataOrtu(2)'>
+                                Simpan Data Ibu
+                            </button>
+                        </div>
                     </div>
-                    <pre>
-                        @php
-                            print_r($dataibu);
-                        @endphp
-                    </pre>
                 </div>
             </div>
 
             {{-- data wali casis --}}
-            <div class="card mb-3" {{-- {{ $datadiri['tinggal_bersama_ortu'] == '' || $datadiri['tinggal_bersama_ortu'] == null || $datadiri['tinggal_bersama_ortu'] == 'ya' ? 'hidden' : null }} --}}>
+            <div class="card mb-3"
+                {{ $datadiri['tinggal_bersama_ortu'] == '' || $datadiri['tinggal_bersama_ortu'] == null || $datadiri['tinggal_bersama_ortu'] == 'ya' ? 'hidden' : null }}>
                 <div class="card-header bg-primary text-light">
                     <h4 class="fw-bold text-center">Data Wali</h4>
                 </div>
                 <div class="card-body">
-                    <div class="col-12 d-grid gap-2">
-                        <button class="btn btn-primary fw-bold">
-                            Simpan Data Wali
-                        </button>
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3">
+                            <label for="namawali" class="fw-bold">Nama Lengkap</label>
+                            <input type="text" id="namawali" class="form-control" placeholder="Nama Lengkap"
+                                wire:model='datawali.nama'>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <label for="nikwali" class="fw-bold">Nomor Induk Kependudukan</label>
+                            <input type="text" id="nikwali" class="form-control" maxlength="16"
+                                onkeypress="return isNumber(event)" wire:model='datawali.nik'
+                                placeholder="Nomor Induk Kependudukan">
+                        </div>
+                        <div class="col-12 col-md-4 mb-3">
+                            <label for="pendidikanwali" class="fw-bold">Pendidikan Terakhir</label>
+                            <select id="pendidikanwali" class="form-select" wire:model='datawali.pendidikan'>
+                                <option value="" selected hidden>Pilih Pendidikan Terakhir</option>
+                                <option value="tidak sekolah">Tidak Pernah Sekolah</option>
+                                <option value="sd">SD</option>
+                                <option value="smp">SMP</option>
+                                <option value="sma">SMA</option>
+                                <option value="d1">D1</option>
+                                <option value="d3">D3</option>
+                                <option value="s1">S1</option>
+                                <option value="s2">S2</option>
+                                <option value="s3">S3</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-4 mb-3">
+                            <label for="pekerjaanwali" class="fw-bold">Pekerjaan</label>
+                            <input type="text" id="pekerjaanwali" class="form-control"
+                                wire:model='datawali.pekerjaan' placeholder="Pekerjaan">
+                        </div>
+                        <div class="col-12 col-md-4 mb-3">
+                            <label for="penghasilanwali" class="fw-bold">Penghasilan per Bulan</label>
+                            <select id="penghasilanwali" class="form-select" wire:model='datawali.penghasilan'>
+                                <option value="" selected hidden>Pilih Berpenghasilan</option>
+                                <option value="tidak ada">Tidak Ada</option>
+                                <option value="<500k">Dibawah Rp 500.000</option>
+                                <option value="500k-1.5jt">Rp 500.000 - Rp 1.499.000</option>
+                                <option value="1.5jt-3jt">Rp 1.500.000 - Rp 3.000.000</option>
+                                <option value=">3jt">Diatas 3.000.000</option>
+                            </select>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="alamatwali" class="fw-bold">Alamat</label>
+                            <textarea id="alamatwali" class="form-control" rows="3" placeholder="Alamat" wire:model='datawali.alamat'></textarea>
+                        </div>
+                        <div class="col-12 d-grid gap-2">
+                            <button class="btn btn-primary fw-bold">
+                                Simpan Data Wali
+                            </button>
+                        </div>
                     </div>
-                    <pre>
-                        @php
-                            print_r($datawali);
-                        @endphp
-                    </pre>
                 </div>
             </div>
 
         </div>
     </div>
     @push('js')
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script>
             function isNumber(evt) {
                 evt = (evt) ? evt : window.event;
@@ -256,6 +334,29 @@
                 }
                 return true;
             }
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                showCloseButton: true,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+            window.addEventListener('alert', ({
+                detail: {
+                    type,
+                    message
+                }
+            }) => {
+                Toast.fire({
+                    icon: type,
+                    title: message
+                })
+            });
         </script>
     @endpush
 </div>

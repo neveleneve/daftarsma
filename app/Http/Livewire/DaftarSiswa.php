@@ -16,12 +16,12 @@ class DaftarSiswa extends Component
     public function render()
     {
         if ($this->pencarian == '') {
-            $this->datacasis = DataDiri::where('tahunajaran', $this->tahunajaranselected)
-                ->get();
+            // $this->datacasis = DataDiri::where('tahunajaran', $this->tahunajaranselected)
+            //     ->get();
         } else {
-            $this->datacasis = DataDiri::where('tahunajaran', $this->tahunajaranselected)
-                ->whereRaw('id_daftar LIKE "%' . $this->pencarian . '%" or nama LIKE "%' . $this->pencarian . '%"')
-                ->get();
+            // $this->datacasis = DataDiri::where('tahunajaran', $this->tahunajaranselected)
+            //     ->whereRaw('id_daftar LIKE "%' . $this->pencarian . '%" or nama LIKE "%' . $this->pencarian . '%"')
+            //     ->get();
         }
         return view('livewire.daftar-siswa')
             ->extends('layouts.livewire');

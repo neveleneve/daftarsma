@@ -20,6 +20,7 @@ class CreateDataWalisTable extends Migration
             $table->string('nik')->nullable(true);
             $table->string('pendidikan')->nullable(true);
             $table->string('pekerjaan')->nullable(true);
+            $table->string('penghasilan')->nullable(true);
             $table->string('alamat')->nullable(true);
             $table->timestamps();
         });

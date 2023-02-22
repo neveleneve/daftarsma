@@ -105,7 +105,6 @@ class Pendaftaran extends Component
             'pendidikan' => $dataayahs[0]['pendidikan'],
             'pekerjaan' => $dataayahs[0]['pekerjaan'],
             'penghasilan' => $dataayahs[0]['penghasilan'],
-            'kebutuhan_khusus' => $dataayahs[0]['kebutuhan_khusus'],
             'alamat' => $dataayahs[0]['alamat'],
         ];
 
@@ -117,7 +116,6 @@ class Pendaftaran extends Component
             'pendidikan' => $dataibus[0]['pendidikan'],
             'pekerjaan' => $dataibus[0]['pekerjaan'],
             'penghasilan' => $dataibus[0]['penghasilan'],
-            'kebutuhan_khusus' => $dataibus[0]['kebutuhan_khusus'],
             'alamat' => $dataibus[0]['alamat'],
         ];
 
@@ -129,7 +127,6 @@ class Pendaftaran extends Component
             'pendidikan' => $datawalis[0]['pendidikan'],
             'pekerjaan' => $datawalis[0]['pekerjaan'],
             'penghasilan' => $datawalis[0]['penghasilan'],
-            'kebutuhan_khusus' => $datawalis[0]['kebutuhan_khusus'],
             'alamat' => $datawalis[0]['alamat'],
         ];
     }
@@ -149,5 +146,38 @@ class Pendaftaran extends Component
             $tahunajar[$i] = $th1 . '-' . $th2;
         }
         return $tahunajar;
+    }
+
+    public function storeDataOrtu($type)
+    {
+        // tipe : 1=> ayah 2=> ibu 3=>wali
+        if ($type == 1) {
+            DataAyah::where('id_user_daftar', $this->dataayah['id_user_daftar'])
+                ->update(
+                    $this->dataayah
+                );
+            $this->dispatchBrowserEvent('alert', [
+                'type' => 'success',
+                'message' => "Berhasil menyimpan data!"
+            ]);
+        } elseif ($type == 2) {
+            DataIbu::where('id_user_daftar', $this->dataibu['id_user_daftar'])
+                ->update(
+                    $this->dataibu
+                );
+            $this->dispatchBrowserEvent('alert', [
+                'type' => 'success',
+                'message' => "Berhasil menyimpan data!"
+            ]);
+        } elseif ($type == 3) {
+            DataWali::where('id_user_daftar', $this->datawali['id_user_daftar'])
+                ->update(
+                    $this->datawali
+                );
+            $this->dispatchBrowserEvent('alert', [
+                'type' => 'success',
+                'message' => "Berhasil menyimpan data!"
+            ]);
+        }
     }
 }
