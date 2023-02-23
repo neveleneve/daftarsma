@@ -17,6 +17,7 @@ class CreateDataDirisTable extends Migration
             $table->id();
             $table->integer('id_user_daftar')->unique()->nullable(false);
             $table->string('nama')->nullable(true);
+            $table->string('kontak')->nullable(true);
             $table->enum('jenis_kelamin', ['laki-laki', 'perempuan'])->nullable(true);
             $table->string('nisn')->nullable(true);
             $table->string('nik')->nullable(true);
@@ -27,7 +28,6 @@ class CreateDataDirisTable extends Migration
             $table->enum('agama', ['islam', 'katolik', 'protestan', 'buddha', 'hindu'])->nullable(true);
             $table->enum('kebutuhan_khusus', ['ya', 'tidak'])->nullable(true);
             $table->enum('tinggal_bersama_ortu', ['ya', 'tidak'])->nullable(true);
-            $table->enum('verifikasi', [0, 1])->nullable(true);
             $table->timestamps();
         });
     }

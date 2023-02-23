@@ -17,6 +17,7 @@ class CreateDataAyahsTable extends Migration
             $table->id();
             $table->integer('id_user_daftar')->unique()->nullable(false);
             $table->string('nama')->nullable(true);
+            $table->string('kontak')->nullable(true);
             $table->string('nik')->nullable(true);
             $table->string('pendidikan')->nullable(true);
             $table->string('pekerjaan')->nullable(true);

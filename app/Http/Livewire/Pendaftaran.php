@@ -21,6 +21,7 @@ class Pendaftaran extends Component
     public $datadiri = [
         'id_user_daftar' => 0,
         'nama' => '',
+        'kontak' => '',
         'jenis_kelamin' => '',
         'nisn' => '',
         'nik' => '',
@@ -37,6 +38,7 @@ class Pendaftaran extends Component
         'id_user_daftar' => 0,
         'nama' => '',
         'nik' => '',
+        'kontak' => '',
         'pendidikan' => '',
         'pekerjaan' => '',
         'penghasilan' => '',
@@ -47,6 +49,7 @@ class Pendaftaran extends Component
         'id_user_daftar' => 0,
         'nama' => '',
         'nik' => '',
+        'kontak' => '',
         'pendidikan' => '',
         'pekerjaan' => '',
         'penghasilan' => '',
@@ -57,6 +60,7 @@ class Pendaftaran extends Component
         'id_user_daftar' => 0,
         'nama' => '',
         'nik' => '',
+        'kontak' => '',
         'pendidikan' => '',
         'pekerjaan' => '',
         'penghasilan' => '',
@@ -79,12 +83,14 @@ class Pendaftaran extends Component
             'id_user_daftar' => $datadaftars[0]['id'],
             'id_daftar' => $datadaftars[0]['id_daftar'],
             'tahun_ajaran' => $datadaftars[0]['tahun_ajaran'],
+            'verifikasi' => $datadaftars[0]['verifikasi'],
         ];
 
         $datadiris = DataDiri::where('id_user_daftar', $this->datadaftar['id_user_daftar'])->get();
         $this->datadiri = [
             'id_user_daftar' => $datadiris[0]['id_user_daftar'],
             'nama' => $datadiris[0]['nama'],
+            'kontak' => $datadiris[0]['kontak'],
             'jenis_kelamin' => $datadiris[0]['jenis_kelamin'],
             'nisn' => $datadiris[0]['nisn'],
             'nik' => $datadiris[0]['nik'],
@@ -101,6 +107,7 @@ class Pendaftaran extends Component
         $this->dataayah = [
             'id_user_daftar' => $dataayahs[0]['id_user_daftar'],
             'nama' => $dataayahs[0]['nama'],
+            'kontak' => $dataayahs[0]['kontak'],
             'nik' => $dataayahs[0]['nik'],
             'pendidikan' => $dataayahs[0]['pendidikan'],
             'pekerjaan' => $dataayahs[0]['pekerjaan'],
@@ -112,6 +119,7 @@ class Pendaftaran extends Component
         $this->dataibu = [
             'id_user_daftar' => $dataibus[0]['id_user_daftar'],
             'nama' => $dataibus[0]['nama'],
+            'kontak' => $dataibus[0]['kontak'],
             'nik' => $dataibus[0]['nik'],
             'pendidikan' => $dataibus[0]['pendidikan'],
             'pekerjaan' => $dataibus[0]['pekerjaan'],
@@ -123,6 +131,7 @@ class Pendaftaran extends Component
         $this->datawali = [
             'id_user_daftar' => $datawalis[0]['id_user_daftar'],
             'nama' => $datawalis[0]['nama'],
+            'kontak' => $datawalis[0]['kontak'],
             'nik' => $datawalis[0]['nik'],
             'pendidikan' => $datawalis[0]['pendidikan'],
             'pekerjaan' => $datawalis[0]['pekerjaan'],
@@ -148,9 +157,9 @@ class Pendaftaran extends Component
         return $tahunajar;
     }
 
-    public function storeDataOrtu($type)
+    public function store($type)
     {
-        // tipe : 1=> ayah 2=> ibu 3=>wali
+        // tipe : 1=> ayah, 2=> ibu, 3=>wali, 4=>diri, 5=>pendaftaran
         if ($type == 1) {
             DataAyah::where('id_user_daftar', $this->dataayah['id_user_daftar'])
                 ->update(
@@ -174,6 +183,22 @@ class Pendaftaran extends Component
                 ->update(
                     $this->datawali
                 );
+            $this->dispatchBrowserEvent('alert', [
+                'type' => 'success',
+                'message' => "Berhasil menyimpan data!"
+            ]);
+        } elseif ($type == 4) {
+            DataDiri::where('id_user_daftar', $this->datadiri['id_user_daftar'])->update(
+                $this->datadiri
+            );
+            $this->dispatchBrowserEvent('alert', [
+                'type' => 'success',
+                'message' => "Berhasil menyimpan data!"
+            ]);
+        } elseif ($type == 5) {
+            UserDaftar::where('id', $this->datadaftar['id_user_daftar'])->update([
+                'tahun_ajaran' => $this->datadaftar['tahun_ajaran']
+            ]);
             $this->dispatchBrowserEvent('alert', [
                 'type' => 'success',
                 'message' => "Berhasil menyimpan data!"

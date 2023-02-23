@@ -2,8 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\DataDiri;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class DaftarSiswa extends Component
@@ -16,12 +15,26 @@ class DaftarSiswa extends Component
     public function render()
     {
         if ($this->pencarian == '') {
-            // $this->datacasis = DataDiri::where('tahunajaran', $this->tahunajaranselected)
-            //     ->get();
+            $this->datacasis = DB::table('user_daftars')
+                ->join('data_diris', 'user_daftars.id', '=', 'data_diris.id_user_daftar')
+                ->where('user_daftars.tahun_ajaran', $this->tahunajaranselected)
+                ->select([
+                    'data_diris.nama as nama',
+                    'user_daftars.id_daftar',
+                    'user_daftars.verifikasi',
+                ])
+                ->get();
         } else {
-            // $this->datacasis = DataDiri::where('tahunajaran', $this->tahunajaranselected)
-            //     ->whereRaw('id_daftar LIKE "%' . $this->pencarian . '%" or nama LIKE "%' . $this->pencarian . '%"')
-            //     ->get();
+            $this->datacasis = DB::table('user_daftars')
+                ->join('data_diris', 'user_daftars.id', '=', 'data_diris.id_user_daftar')
+                ->where('user_daftars.tahun_ajaran', $this->tahunajaranselected)
+                ->whereRaw('(user_daftars.id_daftar LIKE "%' . $this->pencarian . '%" or data_diris.nama LIKE "%' . $this->pencarian . '%")')
+                ->select([
+                    'data_diris.nama as nama',
+                    'user_daftars.id_daftar',
+                    'user_daftars.verifikasi',
+                ])
+                ->get();
         }
         return view('livewire.daftar-siswa')
             ->extends('layouts.livewire');
@@ -64,7 +77,7 @@ class DaftarSiswa extends Component
     public function tahunajaran()
     {
         $tahunajar = [];
-        if (date('n') > 4) {
+        if (date('n') >= 2) {
             $thnow = date('Y') + 1;
         } else {
             $thnow = date('Y');

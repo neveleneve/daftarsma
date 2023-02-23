@@ -22,7 +22,7 @@ class Dashboard extends Component
         $this->verifikasi = DB::table('data_diris')
             ->join('user_daftars', 'data_diris.id_user_daftar', '=', 'user_daftars.id')
             ->where('user_daftars.tahun_ajaran', $this->tahunajaranselected)
-            ->where('data_diris.verifikasi', '1')
+            ->where('user_daftars.verifikasi', '1')
             ->count();
 
         return view('livewire.dashboard')
@@ -38,7 +38,7 @@ class Dashboard extends Component
     public function tahunajaran()
     {
         $tahunajar = [];
-        if (date('n') > 4) {
+        if (date('n') >= 2) {
             $thnow = date('Y') + 1;
         } else {
             $thnow = date('Y');

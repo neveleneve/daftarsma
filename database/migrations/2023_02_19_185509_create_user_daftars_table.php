@@ -18,6 +18,7 @@ class CreateUserDaftarsTable extends Migration
             $table->string('username');
             $table->string('id_daftar');
             $table->string('tahun_ajaran');
+            $table->enum('verifikasi', [0, 1])->nullable(true);
             $table->timestamps();
         });
     }

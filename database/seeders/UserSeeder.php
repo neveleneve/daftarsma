@@ -54,9 +54,11 @@ class UserSeeder extends Seeder
             'username' => 'madandian',
             'id_daftar' => $this->randomString(),
             'tahun_ajaran' => $this->tahunajaran(),
+            'verifikasi' => '0'
         ]);
         DataDiri::insert([
-            'id_user_daftar' => $userdaftar->id
+            'id_user_daftar' => $userdaftar->id,
+            'nama' => 'Ahmad Andian',
         ]);
         DataAyah::insert([
             'id_user_daftar' => $userdaftar->id

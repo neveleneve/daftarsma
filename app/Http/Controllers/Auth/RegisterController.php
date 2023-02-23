@@ -43,7 +43,8 @@ class RegisterController extends Controller
             'tahun_ajaran' => $this->tahunajaran(),
         ]);
         DataDiri::insert([
-            'id_user_daftar' => $userdaftar->id
+            'id_user_daftar' => $userdaftar->id,
+            'nama' => $data['name']
         ]);
         DataAyah::insert([
             'id_user_daftar' => $userdaftar->id
