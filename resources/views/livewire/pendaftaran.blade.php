@@ -136,13 +136,7 @@
                                     <input type="date" id="tanggal_lahir" class="form-control"
                                         placeholder="Tanggal Lahir" wire:model='datadiri.tanggal_lahir'>
                                 </div>
-                                <div class="col-12 col-md-6 mb-3">
-                                    <label for="no_akta" class="fw-bold">Nomor Registrasi Akta Kelahiran</label>
-                                    <input type="text" id="no_akta" class="form-control"
-                                        placeholder="Nomor Registrasi Akta Kelahiran"
-                                        wire:model='datadiri.no_reg_akta_kelahiran'>
-                                </div>
-                                <div class="col-12 col-md-6 mb-3">
+                                <div class="col-12 col-md-4 mb-3">
                                     <label for="agama" class="fw-bold">Agama</label>
                                     <select id="agama" class="form-select" wire:model='datadiri.agama'>
                                         <option value="" selected hidden>Pilih Agama</option>
@@ -153,7 +147,7 @@
                                         <option value="hindu">Hindu</option>
                                     </select>
                                 </div>
-                                <div class="col-12 col-md-6 mb-3">
+                                <div class="col-12 col-md-4 mb-3">
                                     <label for="kebutuhan_khusus" class="fw-bold">Kebutuhan Khusus?</label>
                                     <select id="kebutuhan_khusus" class="form-select"
                                         wire:model='datadiri.kebutuhan_khusus'>
@@ -162,7 +156,7 @@
                                         <option value="ya">Ya</option>
                                     </select>
                                 </div>
-                                <div class="col-12 col-md-6 mb-3">
+                                <div class="col-12 col-md-4 mb-3">
                                     <label for="tinggal_bersama_ortu" class="fw-bold">Tinggal Bersama Orang
                                         Tua?</label>
                                     <select id="tinggal_bersama_ortu" class="form-select"
@@ -172,6 +166,45 @@
                                         <option value="tidak">Tidak</option>
                                         <option value="ya">Ya</option>
                                     </select>
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label for="filename_pasphoto" class="fw-bold">Pas Foto <span
+                                            data-bs-toggle="tooltip" data-bs-placement="right"
+                                            title="File dengan format'.jpg' dan kurang dari 400kb.">
+                                            <i class="fa-xs fa-regular fa-circle-question"></i>
+                                        </span></label>
+                                    <div class="input-group">
+                                        <input type="file" id="filename_pasphoto" class="form-control"
+                                            wire:model='datadiri.filename_pasphoto'>
+                                        @if ($pasphoto['file_exist'] == true)
+                                            <button class="btn btn-outline-primary fw-bold" type="button">
+                                                Lihat Gambar
+                                            </button>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label for="filename_ijazah" class="fw-bold">Foto Ijazah <span
+                                            data-bs-toggle="tooltip" data-bs-placement="right"
+                                            title="File dengan format'.jpg' dan kurang dari 400kb.">
+                                            <i class="fa-xs fa-regular fa-circle-question"></i>
+                                        </span></label>
+                                    <div class="input-group">
+                                        <input type="file" id="filename_ijazah" class="form-control"
+                                            wire:model='datadiri.filename_ijazah'>
+                                        @if ($ijazah['file_exist'] == true)
+                                            <button class="btn btn-outline-primary fw-bold" type="button">
+                                                Lihat Gambar
+                                            </button>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="nilai_ijazah" class="fw-bold">Nilai Rata-rata Ijazah</label>
+                                    <input type="text" id="nilai_ijazah" class="form-control"
+                                        wire:model='datadiri.nilai_ijazah' onkeypress="return isFloat(event)"
+                                        placeholder="Nilai Ijazah">
+
                                 </div>
                                 <div class="col-12 mb-3">
                                     <label for="alamat" class="fw-bold">Alamat Tinggal</label>
@@ -183,11 +216,21 @@
                                         Simpan Data Diri
                                     </button>
                                 </div>
-                                {{-- <pre>
+                                <pre>
                                     @php
                                         print_r($datadiri);
                                     @endphp
-                                </pre> --}}
+                                </pre>
+                                <pre>
+                                    @php
+                                        print_r($ijazah);
+                                    @endphp
+                                </pre>
+                                <pre>
+                                    @php
+                                        print_r($pasphoto);
+                                    @endphp
+                                </pre>
                             </div>
                         </div>
                     </div>
@@ -424,6 +467,18 @@
                     return false;
                 }
                 return true;
+            }
+
+            function isFloat(evt) {
+                var theEvent = evt || window.event;
+                var key = theEvent.keyCode || theEvent.which;
+                key = String.fromCharCode(key);
+                if (key.length == 0) return;
+                var regex = /^[0-9.,\b]+$/;
+                if (!regex.test(key)) {
+                    theEvent.returnValue = false;
+                    if (theEvent.preventDefault) theEvent.preventDefault();
+                }
             }
             const Toast = Swal.mixin({
                 toast: true,

@@ -8,16 +8,26 @@ use App\Models\DataIbu;
 use App\Models\DataWali;
 use App\Models\UserDaftar;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Pendaftaran extends Component
 {
+    use WithFileUploads;
+
     public $datadaftar = [
         'id_user_daftar' => 0,
         'id_daftar' => '',
         'tahun_ajaran' => '',
+        'verifikasi' => '',
     ];
-
+    public $ijazah = [
+        'file_exist' => false,
+    ];
+    public $pasphoto = [
+        'file_exist' => false,
+    ];
     public $datadiri = [
         'id_user_daftar' => 0,
         'nama' => '',
@@ -27,13 +37,14 @@ class Pendaftaran extends Component
         'nik' => '',
         'tempat_lahir' => '',
         'tanggal_lahir' => '',
-        'no_reg_akta_kelahiran' => '',
+        'nilai_ijazah' => 0.0,
+        'filename_ijazah' => '',
+        'filename_pasphoto' => '',
         'agama' => '',
         'kebutuhan_khusus' => '',
         'tinggal_bersama_ortu' => '',
         'alamat' => '',
     ];
-
     public $dataayah = [
         'id_user_daftar' => 0,
         'nama' => '',
@@ -44,7 +55,6 @@ class Pendaftaran extends Component
         'penghasilan' => '',
         'alamat' => '',
     ];
-
     public $dataibu = [
         'id_user_daftar' => 0,
         'nama' => '',
@@ -55,7 +65,6 @@ class Pendaftaran extends Component
         'penghasilan' => '',
         'alamat' => '',
     ];
-
     public $datawali = [
         'id_user_daftar' => 0,
         'nama' => '',
@@ -65,7 +74,6 @@ class Pendaftaran extends Component
         'pekerjaan' => '',
         'penghasilan' => '',
     ];
-
     public $tahunajar = [];
 
     public function render()
@@ -86,6 +94,29 @@ class Pendaftaran extends Component
             'verifikasi' => $datadaftars[0]['verifikasi'],
         ];
 
+        $ijazahdir = public_path('/images/ijazah/' . $this->datadaftar['id_daftar'] . '.jpg');
+        $pasphotodir = public_path('/images/pas foto/' . $this->datadaftar['id_daftar'] . '.jpg');
+
+        if (!File::exists($ijazahdir)) {
+            $this->ijazah = [
+                'file_exist' => false,
+            ];
+        } else {
+            $this->ijazah = [
+                'file_exist' => true,
+            ];
+        }
+
+        if (!File::exists($pasphotodir)) {
+            $this->pasphoto = [
+                'file_exist' => false,
+            ];
+        } else {
+            $this->pasphoto = [
+                'file_exist' => true,
+            ];
+        }
+
         $datadiris = DataDiri::where('id_user_daftar', $this->datadaftar['id_user_daftar'])->get();
         $this->datadiri = [
             'id_user_daftar' => $datadiris[0]['id_user_daftar'],
@@ -96,7 +127,9 @@ class Pendaftaran extends Component
             'nik' => $datadiris[0]['nik'],
             'tempat_lahir' => $datadiris[0]['tempat_lahir'],
             'tanggal_lahir' => $datadiris[0]['tanggal_lahir'],
-            'no_reg_akta_kelahiran' => $datadiris[0]['no_reg_akta_kelahiran'],
+            'nilai_ijazah' => $datadiris[0]['nilai_ijazah'],
+            'filename_ijazah' => '',
+            'filename_pasphoto' => '',
             'agama' => $datadiris[0]['agama'],
             'kebutuhan_khusus' => $datadiris[0]['kebutuhan_khusus'],
             'tinggal_bersama_ortu' => $datadiris[0]['tinggal_bersama_ortu'],

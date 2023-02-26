@@ -4,31 +4,36 @@
             <ul class="nav nav-pills justify-content-center" id="datacasis" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link fw-bold active" id="data-daftar-tab" data-bs-toggle="pill"
-                        data-bs-target="#data-daftar-pill" type="button" role="tab" wire:ignore.self>
+                        data-bs-target="#data-daftar-pill" type="button" role="tab" wire:ignore.self
+                        wire:click='refreshData("{{ $datadaftar['id_daftar'] }}")'>
                         Data Daftar
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link fw-bold" id="data-diri-tab" data-bs-toggle="pill"
-                        data-bs-target="#data-diri-pill" type="button" role="tab" wire:ignore.self>
+                        data-bs-target="#data-diri-pill" type="button" role="tab" wire:ignore.self
+                        wire:click='refreshData("{{ $datadaftar['id_daftar'] }}")'>
                         Data Diri
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link fw-bold" id="data-ayah-tab" data-bs-toggle="pill"
-                        data-bs-target="#data-ayah-pill" type="button" role="tab" wire:ignore.self>
+                        data-bs-target="#data-ayah-pill" type="button" role="tab" wire:ignore.self
+                        wire:click='refreshData("{{ $datadaftar['id_daftar'] }}")'>
                         Data Ayah
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link fw-bold" id="data-ibu-tab" data-bs-toggle="pill"
-                        data-bs-target="#data-ibu-pill" type="button" role="tab" wire:ignore.self>
+                        data-bs-target="#data-ibu-pill" type="button" role="tab" wire:ignore.self
+                        wire:click='refreshData("{{ $datadaftar['id_daftar'] }}")'>
                         Data Ibu
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link fw-bold" id="data-wali-tab" data-bs-toggle="pill"
-                        data-bs-target="#data-wali-pill" type="button" role="tab" wire:ignore.self>
+                        data-bs-target="#data-wali-pill" type="button" role="tab" wire:ignore.self
+                        wire:click='refreshData("{{ $datadaftar['id_daftar'] }}")'>
                         Data Wali
                     </button>
                 </li>
@@ -41,11 +46,15 @@
             <a class="btn btn-danger fw-bold" href="{{ route('siswa') }}">Kembali</a>
         </div>
         <div class="col-6 col-md-10 d-grid gap-2">
-            <button class="btn btn-primary fw-bold">Verifikasi</button>
+            @if ($datadaftar['verifikasi'] == 0)
+                <button class="btn btn-primary fw-bold">Verifikasi</button>
+            @else
+                <button class="btn btn-success fw-bold disabled">Sudah Verifikasi</button>
+            @endif
         </div>
     </div>
     <div class="tab-content" id="pills-content">
-        <div class="tab-pane fade show active" id="data-daftar-pill" role="tabpanel" tabindex="0">
+        <div class="tab-pane fade show active" id="data-daftar-pill" role="tabpanel" tabindex="0" wire:ignore.self>
             <div class="row justify-content-center">
                 <div class="col-12 col-md-10">
                     <div class="card">
@@ -63,15 +72,13 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <pre>
-                                {{ $this->arrayCheck($datadaftar) }}
-                            </pre>
+                            {{ $this->arrayCheck($datadaftar) }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="data-diri-pill" role="tabpanel" tabindex="0">
+        <div class="tab-pane fade" id="data-diri-pill" role="tabpanel" tabindex="0" wire:ignore.self>
             <div class="row justify-content-center">
                 <div class="col-12 col-md-10">
                     <div class="card">
@@ -81,7 +88,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="fw-bold">Nama Lengkap</td>
-                                        <td>{{ $datadiri['nama'] }}</td>
+                                        <td>{{ ucwords($datadiri['nama']) }}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Jenis Kelamin</td>
@@ -117,7 +124,7 @@
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Tanggal Lahir</td>
-                                        <td>{{ $datadiri['tanggal_lahir'] == '' ? '(Belum Diisi)' : $datadiri['tanggal_lahir'] }}
+                                        <td>{{ $datadiri['tanggal_lahir'] == '' ? '(Belum Diisi)' : $this->ubahTanggal($datadiri['tanggal_lahir']) }}
                                         </td>
                                     </tr>
                                     <tr>
@@ -137,12 +144,13 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            {{ $this->arrayCheck($datadiri) }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="data-ayah-pill" role="tabpanel" tabindex="0">
+        <div class="tab-pane fade" id="data-ayah-pill" role="tabpanel" tabindex="0" wire:ignore.self>
             <div class="row justify-content-center">
                 <div class="col-12 col-md-10">
                     <div class="card">
@@ -185,6 +193,7 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            {{ $this->arrayCheck($dataayah) }}
                         </div>
                     </div>
                 </div>
@@ -233,6 +242,7 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            {{ $this->arrayCheck($dataibu) }}
                         </div>
                     </div>
                 </div>
@@ -281,6 +291,7 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            {{ $this->arrayCheck($datawali) }}
                         </div>
                     </div>
                 </div>
