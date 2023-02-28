@@ -72,7 +72,6 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            {{ $this->arrayCheck($datadaftar) }}
                         </div>
                     </div>
                 </div>
@@ -92,12 +91,14 @@
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Jenis Kelamin</td>
-                                        <td>{{ $datadiri['jenis_kelamin'] == '' ? '(Belum Diisi)' : $datadiri['jenis_kelamin'] }}
+                                        <td>{{ $datadiri['jenis_kelamin'] == '' ? '(Belum Diisi)' : ucwords($datadiri['jenis_kelamin']) }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Agama</td>
-                                        <td>{{ $datadiri['agama'] == '' ? '(Belum Diisi)' : $datadiri['agama'] }}</td>
+                                        <td>
+                                            {{ $datadiri['agama'] == '' ? '(Belum Diisi)' : ucwords($datadiri['agama']) }}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Nomor Induk Siswa Nasional</td>
@@ -108,18 +109,13 @@
                                         <td>{{ $datadiri['nik'] == '' ? '(Belum Diisi)' : $datadiri['nik'] }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="fw-bold">Nomor Registrasi Akta Kelahiran</td>
-                                        <td>{{ $datadiri['no_reg_akta_kelahiran'] == '' ? '(Belum Diisi)' : $datadiri['no_reg_akta_kelahiran'] }}
-                                        </td>
-                                    </tr>
-                                    <tr>
                                         <td class="fw-bold">Kontak</td>
                                         <td>{{ $datadiri['kontak'] == '' ? '(Belum Diisi)' : $datadiri['kontak'] }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Tempat Lahir</td>
-                                        <td>{{ $datadiri['tempat_lahir'] == '' ? '(Belum Diisi)' : $datadiri['tempat_lahir'] }}
+                                        <td>{{ $datadiri['tempat_lahir'] == '' ? '(Belum Diisi)' : ucwords($datadiri['tempat_lahir']) }}
                                         </td>
                                     </tr>
                                     <tr>
@@ -129,12 +125,14 @@
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Berkebutuhan Khusus?</td>
-                                        <td>{{ $datadiri['kebutuhan_khusus'] == '' ? '(Belum Diisi)' : $datadiri['kebutuhan_khusus'] }}
+                                        <td>
+                                            {{ $datadiri['kebutuhan_khusus'] == '' ? '(Belum Diisi)' : ucwords($datadiri['kebutuhan_khusus']) }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Tinggal Bersama Orang Tua?</td>
-                                        <td>{{ $datadiri['tinggal_bersama_ortu'] == '' ? '(Belum Diisi)' : $datadiri['tinggal_bersama_ortu'] }}
+                                        <td>
+                                            {{ $datadiri['tinggal_bersama_ortu'] == '' ? '(Belum Diisi)' : ucwords($datadiri['tinggal_bersama_ortu']) }}
                                         </td>
                                     </tr>
                                     <tr>
@@ -142,9 +140,39 @@
                                         <td>{{ $datadiri['alamat'] == '' ? '(Belum Diisi)' : $datadiri['alamat'] }}
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td class="fw-bold">Nilai Rata-rata</td>
+                                        <td>{{ $datadiri['nilai_ijazah'] == '' ? '(Belum Diisi)' : $datadiri['nilai_ijazah'] }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">Ijazah</td>
+                                        <td>
+                                            @if ($ijazah['exist'] == true)
+                                                <button class="btn btn-sm btn-primary fw-bold" data-bs-toggle="modal"
+                                                    data-bs-target="#modalijazah">
+                                                    Lihat
+                                                </button>
+                                            @else
+                                                (Belum Diupload)
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">Pas Foto</td>
+                                        <td>
+                                            @if ($pasfoto['exist'] == true)
+                                                <button class="btn btn-sm btn-primary fw-bold" data-bs-toggle="modal"
+                                                    data-bs-target="#modalpasfoto">
+                                                    Lihat
+                                                </button>
+                                            @else
+                                                (Belum Diupload)
+                                            @endif
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
-                            {{ $this->arrayCheck($datadiri) }}
                         </div>
                     </div>
                 </div>
@@ -193,7 +221,6 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            {{ $this->arrayCheck($dataayah) }}
                         </div>
                     </div>
                 </div>
@@ -242,7 +269,6 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            {{ $this->arrayCheck($dataibu) }}
                         </div>
                     </div>
                 </div>
@@ -291,11 +317,50 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            {{ $this->arrayCheck($datawali) }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @if ($ijazah['exist'] == true)
+        <div class="modal fade" id="modalijazah" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Ijazah Calon Siswa</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img class="img-fluid img-thumbnail"
+                            src="{{ asset('storage/images/ijazah/' . $this->datadaftar['id_daftar'] . '.jpg') }}">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+    @if ($pasfoto['exist'] == true)
+        <div class="modal fade" id="modalpasfoto" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Pas Foto Calon Siswa</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img class="img-fluid img-thumbnail"
+                            src="{{ asset('storage/images/pas foto/' . $this->datadaftar['id_daftar'] . '.jpg') }}">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>

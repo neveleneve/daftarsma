@@ -168,39 +168,41 @@
                                     </select>
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
-                                    <label for="filename_pasphoto" class="fw-bold">Pas Foto <span
+                                    <label for="datapasphoto" class="fw-bold">Pas Foto (3x4) <span
                                             data-bs-toggle="tooltip" data-bs-placement="right"
-                                            title="File dengan format'.jpg' dan kurang dari 400kb.">
+                                            title="- File dengan format '.jpg' atau '.png'.&#010;- Ukuran file harus kurang dari 400kb.&#010;- Dimensi pas foto harus 3x4.">
                                             <i class="fa-xs fa-regular fa-circle-question"></i>
                                         </span></label>
                                     <div class="input-group">
-                                        <input type="file" id="filename_pasphoto" class="form-control"
-                                            wire:model='datadiri.filename_pasphoto'>
+                                        <input type="file" id="datapasphoto" class="form-control"
+                                            wire:model='datapasphoto' accept="image/png, image/jpeg">
                                         @if ($pasphoto['file_exist'] == true)
-                                            <button class="btn btn-outline-primary fw-bold" type="button">
+                                            <button class="btn btn-outline-primary fw-bold" type="button"
+                                                data-bs-toggle="modal" data-bs-target="#modalpasfoto">
                                                 Lihat Gambar
                                             </button>
                                         @endif
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
-                                    <label for="filename_ijazah" class="fw-bold">Foto Ijazah <span
+                                    <label for="dataijazah" class="fw-bold">Foto Ijazah <span
                                             data-bs-toggle="tooltip" data-bs-placement="right"
-                                            title="File dengan format'.jpg' dan kurang dari 400kb.">
+                                            title="- File dengan format '.jpg' atau '.png'.&#010;- Ukuran file harus kurang dari 400kb.">
                                             <i class="fa-xs fa-regular fa-circle-question"></i>
                                         </span></label>
                                     <div class="input-group">
-                                        <input type="file" id="filename_ijazah" class="form-control"
-                                            wire:model='datadiri.filename_ijazah'>
+                                        <input type="file" id="dataijazah" class="form-control"
+                                            wire:model='dataijazah' accept="image/png, image/jpeg">
                                         @if ($ijazah['file_exist'] == true)
-                                            <button class="btn btn-outline-primary fw-bold" type="button">
+                                            <button class="btn btn-outline-primary fw-bold" type="button"
+                                                data-bs-toggle="modal" data-bs-target="#modalijazah">
                                                 Lihat Gambar
                                             </button>
                                         @endif
                                     </div>
                                 </div>
                                 <div class="col-12 mb-3">
-                                    <label for="nilai_ijazah" class="fw-bold">Nilai Rata-rata Ijazah</label>
+                                    <label for="nilai_ijazah" class="fw-bold">Nilai Rata-rata Terakhir</label>
                                     <input type="text" id="nilai_ijazah" class="form-control"
                                         wire:model='datadiri.nilai_ijazah' onkeypress="return isFloat(event)"
                                         placeholder="Nilai Ijazah">
@@ -216,21 +218,6 @@
                                         Simpan Data Diri
                                     </button>
                                 </div>
-                                <pre>
-                                    @php
-                                        print_r($datadiri);
-                                    @endphp
-                                </pre>
-                                <pre>
-                                    @php
-                                        print_r($ijazah);
-                                    @endphp
-                                </pre>
-                                <pre>
-                                    @php
-                                        print_r($pasphoto);
-                                    @endphp
-                                </pre>
                             </div>
                         </div>
                     </div>
@@ -457,6 +444,44 @@
             </div>
         </div>
     </div>
+    @if ($pasphoto['file_exist'] == true)
+        <div class="modal fade" id="modalpasfoto" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Pas Foto Calon Siswa</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img class="img-fluid img-thumbnail" src="{{ $pasphoto['file_name'] }}">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+    @if ($ijazah['file_exist'] == true)
+        <div class="modal fade" id="modalijazah" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Ijazah Calon Siswa</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img class="img-fluid img-thumbnail" src="{{ $ijazah['file_name'] }}">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
     @push('js')
         <script src="{{ asset('js/sweetalert.min.js') }}"></script>
         <script>
@@ -474,7 +499,7 @@
                 var key = theEvent.keyCode || theEvent.which;
                 key = String.fromCharCode(key);
                 if (key.length == 0) return;
-                var regex = /^[0-9.,\b]+$/;
+                var regex = /^[0-9.\b]+$/;
                 if (!regex.test(key)) {
                     theEvent.returnValue = false;
                     if (theEvent.preventDefault) theEvent.preventDefault();

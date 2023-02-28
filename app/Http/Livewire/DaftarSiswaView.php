@@ -7,11 +7,18 @@ use App\Models\DataDiri;
 use App\Models\DataIbu;
 use App\Models\DataWali;
 use App\Models\UserDaftar;
+use Illuminate\Support\Facades\File;
 use Livewire\Component;
 
 class DaftarSiswaView extends Component
 {
     public $ids = '';
+    public $ijazah = [
+        'exist' => false
+    ];
+    public $pasfoto = [
+        'exist' => false
+    ];
     public $datadaftar = [
         'id_user_daftar' => 0,
         'id_daftar' => '',
@@ -26,11 +33,11 @@ class DaftarSiswaView extends Component
         'nik' => '',
         'tempat_lahir' => '',
         'tanggal_lahir' => '',
-        'no_reg_akta_kelahiran' => '',
         'agama' => '',
         'kebutuhan_khusus' => '',
         'tinggal_bersama_ortu' => '',
         'alamat' => '',
+        'nilai_ijazah' => '',
     ];
     public $dataayah = [
         'nama' => '',
@@ -79,6 +86,28 @@ class DaftarSiswaView extends Component
             'verifikasi' => $datadaftar['verifikasi'],
         ];
 
+        $ijazahdir = public_path("storage/images/ijazah/" . $this->datadaftar['id_daftar'] . ".jpg");
+        if (!File::exists($ijazahdir)) {
+            $this->ijazah = [
+                'exist' => false,
+            ];
+        } else {
+            $this->ijazah = [
+                'exist' => true,
+            ];
+        }
+
+        $pasfotodir = public_path("storage/images/pas foto/" . $this->datadaftar['id_daftar'] . ".jpg");
+        if (!File::exists($pasfotodir)) {
+            $this->pasfoto = [
+                'exist' => false,
+            ];
+        } else {
+            $this->pasfoto = [
+                'exist' => true,
+            ];
+        }
+
         $datadiri = DataDiri::where('id_user_daftar', $this->datadaftar['id'])
             ->firstOrFail();
         $this->datadiri = [
@@ -89,11 +118,11 @@ class DaftarSiswaView extends Component
             'nik' => $datadiri['nik'],
             'tempat_lahir' => $datadiri['tempat_lahir'],
             'tanggal_lahir' => $datadiri['tanggal_lahir'],
-            'no_reg_akta_kelahiran' => $datadiri['no_reg_akta_kelahiran'],
             'agama' => $datadiri['agama'],
             'kebutuhan_khusus' => $datadiri['kebutuhan_khusus'],
             'tinggal_bersama_ortu' => $datadiri['tinggal_bersama_ortu'],
             'alamat' => $datadiri['alamat'],
+            'nilai_ijazah' => $datadiri['nilai_ijazah'],
         ];
 
         $dataayah = DataAyah::where('id_user_daftar', $this->datadaftar['id'])
@@ -283,11 +312,11 @@ class DaftarSiswaView extends Component
             'nik' => $datadiri['nik'],
             'tempat_lahir' => $datadiri['tempat_lahir'],
             'tanggal_lahir' => $datadiri['tanggal_lahir'],
-            'no_reg_akta_kelahiran' => $datadiri['no_reg_akta_kelahiran'],
             'agama' => $datadiri['agama'],
             'kebutuhan_khusus' => $datadiri['kebutuhan_khusus'],
             'tinggal_bersama_ortu' => $datadiri['tinggal_bersama_ortu'],
             'alamat' => $datadiri['alamat'],
+            'nilai_ijazah' => $datadiri['nilai_ijazah'],
         ];
 
         $dataayah = DataAyah::where('id_user_daftar', $this->datadaftar['id'])

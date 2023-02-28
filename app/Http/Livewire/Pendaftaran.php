@@ -24,10 +24,14 @@ class Pendaftaran extends Component
     ];
     public $ijazah = [
         'file_exist' => false,
+        'file_name' => '',
     ];
     public $pasphoto = [
         'file_exist' => false,
+        'file_name' => '',
     ];
+    public $dataijazah = null;
+    public $datapasphoto = null;
     public $datadiri = [
         'id_user_daftar' => 0,
         'nama' => '',
@@ -37,9 +41,7 @@ class Pendaftaran extends Component
         'nik' => '',
         'tempat_lahir' => '',
         'tanggal_lahir' => '',
-        'nilai_ijazah' => 0.0,
-        'filename_ijazah' => '',
-        'filename_pasphoto' => '',
+        'nilai_ijazah' => '',
         'agama' => '',
         'kebutuhan_khusus' => '',
         'tinggal_bersama_ortu' => '',
@@ -94,26 +96,30 @@ class Pendaftaran extends Component
             'verifikasi' => $datadaftars[0]['verifikasi'],
         ];
 
-        $ijazahdir = public_path('/images/ijazah/' . $this->datadaftar['id_daftar'] . '.jpg');
-        $pasphotodir = public_path('/images/pas foto/' . $this->datadaftar['id_daftar'] . '.jpg');
+        $ijazahdir = public_path("storage/images/ijazah/" . $this->datadaftar['id_daftar'] . ".jpg");
+        $pasphotodir = public_path('storage/images/pas foto/' . $this->datadaftar['id_daftar'] . '.jpg');
 
         if (!File::exists($ijazahdir)) {
             $this->ijazah = [
                 'file_exist' => false,
+                'file_nama' => '',
             ];
         } else {
             $this->ijazah = [
                 'file_exist' => true,
+                'file_name' => asset('storage/images/ijazah/' . $this->datadaftar['id_daftar'] . '.jpg') . '?' . rand(),
             ];
         }
 
         if (!File::exists($pasphotodir)) {
             $this->pasphoto = [
                 'file_exist' => false,
+                'file_name' => '',
             ];
         } else {
             $this->pasphoto = [
                 'file_exist' => true,
+                'file_name' => asset('storage/images/pas foto/' . $this->datadaftar['id_daftar'] . '.jpg') . '?' . rand(),
             ];
         }
 
@@ -221,9 +227,60 @@ class Pendaftaran extends Component
                 'message' => "Berhasil menyimpan data!"
             ]);
         } elseif ($type == 4) {
-            DataDiri::where('id_user_daftar', $this->datadiri['id_user_daftar'])->update(
-                $this->datadiri
-            );
+            DataDiri::where('id_user_daftar', $this->datadiri['id_user_daftar'])
+                ->update([
+                    'nama' => $this->datadiri['nama'],
+                    'kontak' => $this->datadiri['kontak'],
+                    'jenis_kelamin' => $this->datadiri['jenis_kelamin'],
+                    'nisn' => $this->datadiri['nisn'],
+                    'nik' => $this->datadiri['nik'],
+                    'tempat_lahir' => $this->datadiri['tempat_lahir'],
+                    'tanggal_lahir' => $this->datadiri['tanggal_lahir'],
+                    'nilai_ijazah' => $this->datadiri['nilai_ijazah'],
+                    'agama' => $this->datadiri['agama'],
+                    'kebutuhan_khusus' => $this->datadiri['kebutuhan_khusus'],
+                    'tinggal_bersama_ortu' => $this->datadiri['tinggal_bersama_ortu'],
+                    'alamat' => $this->datadiri['alamat'],
+                ]);
+
+            if ($this->datapasphoto != '' || $this->datapasphoto != null) {
+                $pasphotodir = public_path('storage/images/pas foto/' . $this->datadaftar['id_daftar'] . '.jpg');
+                if (!File::exists($pasphotodir)) {
+                    $this->datapasphoto->storeAs('images/pas foto', $this->datadaftar['id_daftar'] . '.jpg', 'public');
+                    $this->pasphoto = [
+                        'file_exist' => true,
+                        'file_name' => asset('storage/images/pas foto/' . $this->datadaftar['id_daftar'] . '.jpg') . '?' . rand(),
+                    ];
+                } else {
+                    File::delete('/storage/images/pas foto/' . $this->datadaftar['id_daftar'] . '.jpg');
+                    $this->datapasphoto->storeAs('images/pas foto', $this->datadaftar['id_daftar'] . '.jpg', 'public');
+                    $this->pasphoto = [
+                        'file_exist' => true,
+                        'file_name' => asset('storage/images/pas foto/' . $this->datadaftar['id_daftar'] . '.jpg') . '?' . rand(),
+                    ];
+                }
+                $this->datapasphoto = null;
+            }
+
+            if ($this->dataijazah != '' || $this->dataijazah != null) {
+                $ijazahdir = public_path("storage/images/ijazah/" . $this->datadaftar['id_daftar'] . ".jpg");
+                if (!File::exists($ijazahdir)) {
+                    $this->dataijazah->storeAs('images/ijazah', $this->datadaftar['id_daftar'] . '.jpg', 'public');
+                    $this->ijazah = [
+                        'file_exist' => true,
+                        'file_name' => asset('storage/images/ijazah/' . $this->datadaftar['id_daftar'] . '.jpg') . '?' . rand(),
+                    ];
+                } else {
+                    File::delete('/storage/images/ijazah/' . $this->datadaftar['id_daftar'] . '.jpg');
+                    $this->dataijazah->storeAs('images/ijazah', $this->datadaftar['id_daftar'] . '.jpg', 'public');
+                    $this->ijazah = [
+                        'file_exist' => true,
+                        'file_name' => asset('storage/images/ijazah/' . $this->datadaftar['id_daftar'] . '.jpg') . '?' . rand(),
+                    ];
+                }
+                $this->dataijazah = null;
+            }
+
             $this->dispatchBrowserEvent('alert', [
                 'type' => 'success',
                 'message' => "Berhasil menyimpan data!"
