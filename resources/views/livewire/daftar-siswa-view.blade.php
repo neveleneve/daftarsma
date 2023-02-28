@@ -30,13 +30,15 @@
                         Data Ibu
                     </button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link fw-bold" id="data-wali-tab" data-bs-toggle="pill"
-                        data-bs-target="#data-wali-pill" type="button" role="tab" wire:ignore.self
-                        wire:click='refreshData("{{ $datadaftar['id_daftar'] }}")'>
-                        Data Wali
-                    </button>
-                </li>
+                @if ($datadiri['tinggal_bersama_ortu'] == 'tidak')
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link fw-bold" id="data-wali-tab" data-bs-toggle="pill"
+                            data-bs-target="#data-wali-pill" type="button" role="tab" wire:ignore.self
+                            wire:click='refreshData("{{ $datadaftar['id_daftar'] }}")'>
+                            Data Wali
+                        </button>
+                    </li>
+                @endif
             </ul>
             <hr class="mb-0">
         </div>
@@ -206,7 +208,7 @@
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Penghasilan per Bulan</td>
-                                        <td>{{ $this->penghasilan($dataayah['penghasilan']) == '' ? '(Belum Diisi)' : $this->pendidikan($dataayah['penghasilan']) }}
+                                        <td>{{ $this->penghasilan($dataayah['penghasilan']) == '' ? '(Belum Diisi)' : $this->penghasilan($dataayah['penghasilan']) }}
                                         </td>
                                     </tr>
                                     <tr>
@@ -274,54 +276,56 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="data-wali-pill" role="tabpanel" tabindex="0" wire:ignore.self>
-            <div class="row justify-content-center">
-                <div class="col-12 col-md-10">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="text-center">Data Wali</h3>
-                            <table class="table table-bordered">
-                                <tbody>
-                                    <tr>
-                                        <td class="fw-bold">Nama Lengkap</td>
-                                        <td>{{ $datawali['nama'] == '' ? '(Belum Diisi)' : $datawali['nama'] }}
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-bold">Nomor Induk Kependudukan</td>
-                                        <td>{{ $datawali['nik'] == '' ? '(Belum Diisi)' : $datawali['nik'] }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-bold">Kontak</td>
-                                        <td>{{ $datawali['kontak'] == '' ? '(Belum Diisi)' : $datawali['kontak'] }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-bold">Pendidikan Terakhir</td>
-                                        <td>{{ $this->pendidikan($datawali['pendidikan']) == '' ? '(Belum Diisi)' : $this->pendidikan($datawali['pendidikan']) }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-bold">Penghasilan per Bulan</td>
-                                        <td>{{ $this->penghasilan($datawali['penghasilan']) == '' ? '(Belum Diisi)' : $this->pendidikan($datawali['penghasilan']) }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-bold">Pekerjaan</td>
-                                        <td>{{ $datawali['pekerjaan'] == '' ? '(Belum Diisi)' : ucwords($datawali['pekerjaan']) }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-bold">Alamat</td>
-                                        <td>{{ $datawali['alamat'] == '' ? '(Belum Diisi)' : $datawali['alamat'] }}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+        @if ($datadiri['tinggal_bersama_ortu'] == 'tidak')
+            <div class="tab-pane fade" id="data-wali-pill" role="tabpanel" tabindex="0" wire:ignore.self>
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="text-center">Data Wali</h3>
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <td class="fw-bold">Nama Lengkap</td>
+                                            <td>{{ $datawali['nama'] == '' ? '(Belum Diisi)' : $datawali['nama'] }}
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-bold">Nomor Induk Kependudukan</td>
+                                            <td>{{ $datawali['nik'] == '' ? '(Belum Diisi)' : $datawali['nik'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-bold">Kontak</td>
+                                            <td>{{ $datawali['kontak'] == '' ? '(Belum Diisi)' : $datawali['kontak'] }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-bold">Pendidikan Terakhir</td>
+                                            <td>{{ $this->pendidikan($datawali['pendidikan']) == '' ? '(Belum Diisi)' : $this->pendidikan($datawali['pendidikan']) }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-bold">Penghasilan per Bulan</td>
+                                            <td>{{ $this->penghasilan($datawali['penghasilan']) == '' ? '(Belum Diisi)' : $this->pendidikan($datawali['penghasilan']) }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-bold">Pekerjaan</td>
+                                            <td>{{ $datawali['pekerjaan'] == '' ? '(Belum Diisi)' : ucwords($datawali['pekerjaan']) }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-bold">Alamat</td>
+                                            <td>{{ $datawali['alamat'] == '' ? '(Belum Diisi)' : $datawali['alamat'] }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
     @if ($ijazah['exist'] == true)
         <div class="modal fade" id="modalijazah" tabindex="-1">

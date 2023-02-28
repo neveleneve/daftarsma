@@ -149,17 +149,19 @@ class DaftarSiswaView extends Component
             'alamat' => $dataibu['alamat'],
         ];
 
-        $datawali = DataWali::where('id_user_daftar', $this->datadaftar['id'])
-            ->firstOrFail();
-        $this->datawali = [
-            'nama' => $datawali['nama'],
-            'nik' => $datawali['nik'],
-            'kontak' => $datawali['kontak'],
-            'pendidikan' => $datawali['pendidikan'],
-            'pekerjaan' => $datawali['pekerjaan'],
-            'penghasilan' => $datawali['penghasilan'],
-            'alamat' => $datawali['alamat'],
-        ];
+        if ($this->datadiri['tinggal_bersama_ortu'] == 'tidak') {
+            $datawali = DataWali::where('id_user_daftar', $this->datadaftar['id'])
+                ->firstOrFail();
+            $this->datawali = [
+                'nama' => $datawali['nama'],
+                'nik' => $datawali['nik'],
+                'kontak' => $datawali['kontak'],
+                'pendidikan' => $datawali['pendidikan'],
+                'pekerjaan' => $datawali['pekerjaan'],
+                'penghasilan' => $datawali['penghasilan'],
+                'alamat' => $datawali['alamat'],
+            ];
+        }
     }
 
     public function dataCheck($id)
