@@ -170,7 +170,7 @@
                                 <div class="col-12 col-md-6 mb-3">
                                     <label for="datapasphoto" class="fw-bold">Pas Foto (3x4) <span
                                             data-bs-toggle="tooltip" data-bs-placement="right"
-                                            title="- File dengan format '.jpg' atau '.png'.&#010;- Ukuran file harus kurang dari 400kb.&#010;- Dimensi pas foto harus 3x4.">
+                                            title="- File dengan format '.jpg' atau '.png'.&#010;- Ukuran file harus kurang dari 1Mb.&#010;- Dimensi pas foto harus 3x4.">
                                             <i class="fa-xs fa-regular fa-circle-question"></i>
                                         </span></label>
                                     <div class="input-group">
@@ -187,7 +187,7 @@
                                 <div class="col-12 col-md-6 mb-3">
                                     <label for="dataijazah" class="fw-bold">Foto Ijazah <span
                                             data-bs-toggle="tooltip" data-bs-placement="right"
-                                            title="- File dengan format '.jpg' atau '.png'.&#010;- Ukuran file harus kurang dari 400kb.">
+                                            title="- File dengan format '.jpg' atau '.png'.&#010;- Ukuran file harus kurang dari 1Mb.">
                                             <i class="fa-xs fa-regular fa-circle-question"></i>
                                         </span></label>
                                     <div class="input-group">
@@ -444,6 +444,11 @@
             </div>
         </div>
     </div>
+    {{-- @php
+        print_r($ijazah);
+        echo '<br>';
+        print_r($pasphoto);
+    @endphp --}}
     @if ($pasphoto['file_exist'] == true)
         <div class="modal fade" id="modalpasfoto" tabindex="-1">
             <div class="modal-dialog">

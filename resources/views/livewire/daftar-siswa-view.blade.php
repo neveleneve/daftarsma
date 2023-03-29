@@ -47,13 +47,15 @@
         <div class="col-6 col-md-10 d-grid gap-2 mb-0 mb-md-3">
             <a class="btn btn-danger fw-bold" href="{{ route('siswa') }}">Kembali</a>
         </div>
-        <div class="col-6 col-md-10 d-grid gap-2">
-            @if ($datadaftar['verifikasi'] == 0)
-                <button class="btn btn-primary fw-bold">Verifikasi</button>
-            @else
-                <button class="btn btn-success fw-bold disabled">Sudah Verifikasi</button>
-            @endif
-        </div>
+        @level('admin')
+            <div class="col-6 col-md-10 d-grid gap-2">
+                @if ($datadaftar['verifikasi'] == 0)
+                    <button class="btn btn-primary fw-bold">Verifikasi</button>
+                @else
+                    <button class="btn btn-success fw-bold disabled">Sudah Verifikasi</button>
+                @endif
+            </div>
+        @endlevel
     </div>
     <div class="tab-content" id="pills-content">
         <div class="tab-pane fade show active" id="data-daftar-pill" role="tabpanel" tabindex="0" wire:ignore.self>
@@ -333,7 +335,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Ijazah Calon Siswa</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        <button  type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body text-center">

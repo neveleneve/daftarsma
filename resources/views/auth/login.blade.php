@@ -5,14 +5,17 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Login') }}</div>
+                    <div class="card-header bg-primary text-center text-white fw-bold">
+                        <h4>
+                            {{ __('Login') }}
+                        </h4>
+                    </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="row mb-3">
                                 <label for="username"
                                     class="col-md-4 col-form-label text-md-end fw-bold">{{ __('Nama Pengguna') }}</label>
-
                                 <div class="col-md-6">
                                     <input id="username" type="text"
                                         class="form-control @error('username') is-invalid @enderror" name="username"

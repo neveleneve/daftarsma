@@ -172,16 +172,6 @@ class DaftarSiswaView extends Component
         }
     }
 
-    public function arrayCheck($arr)
-    {
-        $jumlah = 0;
-        $text = "";
-        foreach ($arr as $keys => $value) {
-            $jumlah += empty($value);
-        }
-        return $jumlah;
-    }
-
     public function penghasilan($code)
     {
         switch ($code) {
