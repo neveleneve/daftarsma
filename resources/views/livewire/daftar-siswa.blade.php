@@ -68,7 +68,7 @@
                                         <td>{{ ucwords(strtolower($item->nama)) }}</td>
                                         <td>
                                             <button class="btn btn-sm btn-warning fw-bold"
-                                                wire:click='redirecting("siswaview", "{{ $item->id_daftar }}")'>
+                                                wire:click='redirecting("siswaviewbridge", "{{ $item->id_daftar }}")'>
                                                 <span class="d-none d-md-inline">
                                                     View
                                                 </span>

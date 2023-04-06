@@ -41,7 +41,7 @@ class RegisterController extends Controller
             'username' => $data['username'],
             'id_daftar' => $this->randomString(),
             'tahun_ajaran' => $this->tahunajaran(),
-            'verifikasi' => 0,
+            'verifikasi' => '0',
         ]);
         DataDiri::insert([
             'id_user_daftar' => $userdaftar->id,

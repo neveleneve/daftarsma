@@ -68,7 +68,6 @@ class DaftarSiswaView extends Component
 
     public function render()
     {
-        $this->dataCheck($this->ids);
         return view('livewire.daftar-siswa-view')
             ->extends('layouts.livewire');
     }
@@ -166,10 +165,7 @@ class DaftarSiswaView extends Component
 
     public function dataCheck($id)
     {
-        $data = UserDaftar::where('id_daftar', $id)->count();
-        if ($data == 0) {
-            return redirect(route('siswa'));
-        }
+        
     }
 
     public function penghasilan($code)

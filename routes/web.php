@@ -22,6 +22,8 @@ Route::middleware(['auth', 'superadmin'])->group(function () {
 Route::middleware(['auth', 'alladmin'])->group(function () {
     Route::get('daftar-siswa', App\Http\Livewire\DaftarSiswa::class)
         ->name('siswa');
+    Route::get('daftar-siswa/view/bridge/{id}', [App\Http\Controllers\BridgeController::class, 'siswaViewBridge'])
+        ->name('siswaviewbridge');
     Route::get('daftar-siswa/view/{id}', App\Http\Livewire\DaftarSiswaView::class)
         ->name('siswaview');
 

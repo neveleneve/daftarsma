@@ -12,6 +12,7 @@ class UserDaftar extends Model
     protected $fillable = [
         'username',
         'id_daftar',
-        'tahun_ajaran'
+        'tahun_ajaran',
+        'verifikasi'
     ];
 }
