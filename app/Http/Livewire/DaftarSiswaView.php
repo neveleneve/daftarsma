@@ -20,7 +20,7 @@ class DaftarSiswaView extends Component
         'exist' => false
     ];
     public $datadaftar = [
-        'id_user_daftar' => 0,
+        'id' => 0,
         'id_daftar' => '',
         'tahun_ajaran' => '',
         'verifikasi' => '',
@@ -161,11 +161,6 @@ class DaftarSiswaView extends Component
                 'alamat' => $datawali['alamat'],
             ];
         }
-    }
-
-    public function dataCheck($id)
-    {
-        
     }
 
     public function penghasilan($code)
@@ -342,5 +337,17 @@ class DaftarSiswaView extends Component
             'penghasilan' => $datawali['penghasilan'],
             'alamat' => $datawali['alamat'],
         ];
+    }
+
+    public function verifikasi($id, $id_daftar)
+    {
+        UserDaftar::where('id', $id)->update([
+            'verifikasi' => '1'
+        ]);
+        $this->datadaftar['verifikasi'] = 1;
+        $this->dispatchBrowserEvent('alert', [
+            'type' => 'success',
+            'message' => "Berhasil verifikasi data!"
+        ]);
     }
 }

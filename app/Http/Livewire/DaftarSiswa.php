@@ -35,6 +35,7 @@ class DaftarSiswa extends Component
                     'user_daftars.verifikasi' => '1'
                 ])
                 ->select([
+                    'data_diris.nilai_ijazah',
                     'data_diris.nama as nama',
                     'user_daftars.id_daftar',
                     'user_daftars.verifikasi',

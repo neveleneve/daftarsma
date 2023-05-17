@@ -50,7 +50,9 @@
         @level('admin')
             <div class="col-6 col-md-10 d-grid gap-2">
                 @if ($datadaftar['verifikasi'] == 0)
-                    <button class="btn btn-primary fw-bold">Verifikasi</button>
+                    <button class="btn btn-primary fw-bold" data-bs-toggle="modal" data-bs-target="#modalverifikasi">
+                        Verifikasi
+                    </button>
                 @else
                     <button class="btn btn-success fw-bold disabled">Sudah Verifikasi</button>
                 @endif
@@ -343,7 +345,7 @@
                             src="{{ asset('storage/images/ijazah/' . $this->datadaftar['id_daftar'] . '.jpg') }}">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                     </div>
                 </div>
             </div>
@@ -363,10 +365,76 @@
                             src="{{ asset('storage/images/pas foto/' . $this->datadaftar['id_daftar'] . '.jpg') }}">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                     </div>
                 </div>
             </div>
         </div>
     @endif
+    <div class="modal fade" id="modalverifikasi" tabindex="-1" wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Verifikasi Data Calon Siswa?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <button
+                        wire:click='verifikasi({{ $this->datadaftar['id'] }}, "{{ $this->datadaftar['id_daftar'] }}")'
+                        type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                        Verifikasi
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @push('js')
+        <script src="{{ asset('js/sweetalert.min.js') }}"></script>
+        <script>
+            function isNumber(evt) {
+                evt = (evt) ? evt : window.event;
+                var charCode = (evt.which) ? evt.which : evt.keyCode;
+                if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                    return false;
+                }
+                return true;
+            }
+
+            function isFloat(evt) {
+                var theEvent = evt || window.event;
+                var key = theEvent.keyCode || theEvent.which;
+                key = String.fromCharCode(key);
+                if (key.length == 0) return;
+                var regex = /^[0-9.\b]+$/;
+                if (!regex.test(key)) {
+                    theEvent.returnValue = false;
+                    if (theEvent.preventDefault) theEvent.preventDefault();
+                }
+            }
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                showCloseButton: true,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+            window.addEventListener('alert', ({
+                detail: {
+                    type,
+                    message
+                }
+            }) => {
+                Toast.fire({
+                    icon: type,
+                    title: message
+                })
+            });
+        </script>
+    @endpush
 </div>
