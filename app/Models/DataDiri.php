@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class DataDiri extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'username',
+        'id_daftar',
+        'tahun_ajaran',
+        'verifikasi'
+    ];
+
+    public function userDaftar()
+    {
+        return $this->belongsTo(UserDaftar::class, 'id', 'id_user_daftar');
+    }
 }

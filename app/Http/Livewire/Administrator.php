@@ -14,6 +14,7 @@ class Administrator extends Component
     public $pencarian = '';
     public $adminadd = [
         'nama' => '',
+        'email' => '',
         'username' => '',
     ];
     public $adminview = [
@@ -61,7 +62,8 @@ class Administrator extends Component
             $this->adminadd,
             [
                 'nama'   => 'required',
-                'username'   => 'required',
+                'email'   => 'required | email',
+                'username'   => 'required | min:8'
             ],
             $this->customMessages
         );
@@ -72,6 +74,7 @@ class Administrator extends Component
             User::insert([
                 'name' => $this->adminadd['nama'],
                 'username' => $this->adminadd['username'],
+                'email' => $this->adminadd['email'],
                 'password' => Hash::make('12345678'),
                 'level' => '1',
                 'created_at' => date('Y-m-d H:i:s'),

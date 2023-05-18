@@ -29,6 +29,8 @@ Route::middleware(['auth', 'alladmin'])->group(function () {
 
     Route::get('laporan', App\Http\Livewire\Laporan::class)
         ->name('laporan');
+    Route::post('laporan/cetak', [\App\Http\Controllers\BridgeController::class, 'cetakLaporan'])
+        ->name('laporan.cetak');
 });
 
 Route::middleware(['auth', 'casis'])->group(function () {

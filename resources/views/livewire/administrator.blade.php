@@ -60,7 +60,6 @@
             </table>
         </div>
     </div>
-
     <div wire:ignore.self class="modal fade" id="tambahadmin" data-bs-backdrop="static" role="dialog">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -71,6 +70,9 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12">
+                            <label for="email" class="fw-bold">Email Administrator</label>
+                            <input type="email" class="form-control mb-3" placeholder="Email Administrator"
+                                id="email" wire:model.lazy='adminadd.email'>
                             <label for="nama" class="fw-bold">Nama Administrator</label>
                             <input type="text" class="form-control mb-3" placeholder="Nama Administrator"
                                 id="nama" wire:model.lazy='adminadd.nama'>

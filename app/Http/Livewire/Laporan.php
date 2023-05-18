@@ -7,8 +7,6 @@ use Livewire\Component;
 class Laporan extends Component
 {
     public $tahunajaran = [];
-    public $tahunajaranselected;
-    public $jenislaporanselected;
 
     public function render()
     {
