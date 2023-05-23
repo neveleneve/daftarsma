@@ -22,25 +22,17 @@
             opacity: 0.2;
         }
 
-        table,
-        th,
-        td {
+        .table-border {
             border: 1px solid black;
             border-collapse: collapse;
         }
 
-        th,
-        td {
+        .table-padding {
             padding-top: 10px;
             padding-bottom: 10px;
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
+        .header-align-center {
             text-align: center;
         }
     </style>
@@ -60,7 +52,7 @@
                 <hr>
 
                 <h2 class="text-center mb-3">{{ $title }}</h2>
-                <table class="table table-border text-center">
+                <table class="table table-border">
                     <thead>
                         <tr>
                             <th>No</th>

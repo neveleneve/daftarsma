@@ -40,6 +40,19 @@
             <hr class="mb-0">
         </div>
     </div>
+    @if ($datadaftar['verifikasi'] == 1)
+        <div class="row justify-content-center mb-3">
+            <div class="col-12 col-lg-10">
+                <form action="{{ route('pendaftaran.cetak') }}" method="post" target="__blank">
+                    @csrf
+                    <input type="hidden" name="id_user_daftar" value="{{ $datadaftar['id_user_daftar'] }}">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary fw-bold" type="submit">Cetak Bukti Daftar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endif
     <div class="tab-content" id="pills-content">
         <div class="tab-pane fade show active" id="data-daftar-pill" role="tabpanel" tabindex="0" wire:ignore.self>
             <div class="row justify-content-center">
@@ -74,11 +87,13 @@
                                     <input type="text" id="id_pendaftaran" class="form-control" readonly
                                         wire:model='datadaftar.id_daftar'>
                                 </div>
-                                <div class="col-12 d-grid gap-2">
-                                    <button class="btn btn-primary fw-bold" wire:click='store(5)'>
-                                        Simpan Data Pendaftaran
-                                    </button>
-                                </div>
+                                @if ($datadaftar['verifikasi'] != 1)
+                                    <div class="col-12 d-grid gap-2">
+                                        <button class="btn btn-primary fw-bold" wire:click='store(5)'>
+                                            Simpan Data Pendaftaran
+                                        </button>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -213,11 +228,13 @@
                                     <textarea id="alamat" class="form-control" rows="3" placeholder="Alamat Tinggal"
                                         wire:model='datadiri.alamat'></textarea>
                                 </div>
-                                <div class="col-12 d-grid gap-2">
-                                    <button class="btn btn-primary fw-bold" wire:click='store(4)'>
-                                        Simpan Data Diri
-                                    </button>
-                                </div>
+                                @if ($datadaftar['verifikasi'] != 1)
+                                    <div class="col-12 d-grid gap-2">
+                                        <button class="btn btn-primary fw-bold" wire:click='store(4)'>
+                                            Simpan Data Diri
+                                        </button>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -277,20 +294,22 @@
                                         <option value="" selected hidden>Pilih Penghasilan per Bulan</option>
                                         <option value="tidak ada">Tidak Ada</option>
                                         <option value="<500k">Dibawah Rp 500.000</option>
-                                        <option value="500k-1.5jt">Rp 500.000 - Rp 1.499.000</option>
+                                        <option value="500k-1.5jt">Rp 500.000 - Rp 1.499.999</option>
                                         <option value="1.5jt-3jt">Rp 1.500.000 - Rp 3.000.000</option>
-                                        <option value=">3jt">Diatas 3.000.000</option>
+                                        <option value=">3jt">Diatas Rp 3.000.000</option>
                                     </select>
                                 </div>
                                 <div class="col-12 mb-3">
                                     <label for="alamatayah" class="fw-bold">Alamat</label>
                                     <textarea id="alamatayah" class="form-control" rows="3" placeholder="Alamat" wire:model='dataayah.alamat'></textarea>
                                 </div>
-                                <div class="col-12 d-grid gap-2">
-                                    <button class="btn btn-primary fw-bold" wire:click='store(1)'>
-                                        Simpan Data Ayah
-                                    </button>
-                                </div>
+                                @if ($datadaftar['verifikasi'] != 1)
+                                    <div class="col-12 d-grid gap-2">
+                                        <button class="btn btn-primary fw-bold" wire:click='store(1)'>
+                                            Simpan Data Ayah
+                                        </button>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -358,11 +377,13 @@
                                     <label for="alamatibu" class="fw-bold">Alamat</label>
                                     <textarea id="alamatibu" class="form-control" rows="3" placeholder="Alamat" wire:model='dataibu.alamat'></textarea>
                                 </div>
-                                <div class="col-12 d-grid gap-2">
-                                    <button class="btn btn-primary fw-bold" wire:click='store(2)'>
-                                        Simpan Data Ibu
-                                    </button>
-                                </div>
+                                @if ($datadaftar['verifikasi'] != 1)
+                                    <div class="col-12 d-grid gap-2">
+                                        <button class="btn btn-primary fw-bold" wire:click='store(2)'>
+                                            Simpan Data Ibu
+                                        </button>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -432,11 +453,13 @@
                                     <label for="alamatwali" class="fw-bold">Alamat</label>
                                     <textarea id="alamatwali" class="form-control" rows="3" placeholder="Alamat" wire:model='datawali.alamat'></textarea>
                                 </div>
-                                <div class="col-12 d-grid gap-2">
-                                    <button class="btn btn-primary fw-bold" wire:click='store(3)'>
-                                        Simpan Data Wali
-                                    </button>
-                                </div>
+                                @if ($datadaftar['verifikasi'] != 1)
+                                    <div class="col-12 d-grid gap-2">
+                                        <button class="btn btn-primary fw-bold" wire:click='store(3)'>
+                                            Simpan Data Wali
+                                        </button>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -444,11 +467,6 @@
             </div>
         </div>
     </div>
-    {{-- @php
-        print_r($ijazah);
-        echo '<br>';
-        print_r($pasphoto);
-    @endphp --}}
     @if ($pasphoto['file_exist'] == true)
         <div class="modal fade" id="modalpasfoto" tabindex="-1">
             <div class="modal-dialog">
