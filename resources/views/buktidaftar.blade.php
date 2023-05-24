@@ -41,6 +41,14 @@
         .fw-bold {
             font-weight: 700 !important;
         }
+
+        .last {
+            position: absolute;
+            bottom: 10px;
+            left: 0px;
+            right: 0px;
+            height: 100px;
+        }
     </style>
 </head>
 
@@ -299,6 +307,22 @@
             </tr>
         </tbody>
     </table>
+    <div class="last">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td>
+                        <h6>Mengetahui,</h6>
+                        <h6>Orang Tua / Wali</h6>
+                        <br>
+                        <br>
+                        <br>
+                        <h6><u>.......................................</u></h6>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 
 </html>

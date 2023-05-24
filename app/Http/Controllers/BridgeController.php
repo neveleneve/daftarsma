@@ -66,10 +66,6 @@ class BridgeController extends Controller
         $dataayah = DataAyah::where('id_user_daftar', $request->id_user_daftar)->get();
         $dataibu = DataIbu::where('id_user_daftar', $request->id_user_daftar)->get();
         $datawali = DataWali::where('id_user_daftar', $request->id_user_daftar)->get();
-        // dd($datadiri);
-        // return view('buktidaftar', [
-        //     'title' => $title
-        // ]);
 
         // foto ijazah dan pas foto
         $ijazah = [];

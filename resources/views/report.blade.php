@@ -35,54 +35,82 @@
         .header-align-center {
             text-align: center;
         }
+
+        .last {
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            height: 100px;
+        }
     </style>
 </head>
 
 <body>
-    <div id="watermark">
-        <img src="{{ asset('images/logo.png') }}" height="100%" width="100%" />
+    <table class="table">
+        <tbody>
+            <tr>
+                <td>
+                    <img src="{{ asset('images/logo.png') }}" height="10%" width="35%"
+                        class="align-items-center" />
+                </td>
+                <td>
+                    <h1 class="text-center">SMA Negeri 1 Palmatak</h1>
+                    <h6 class="text-center">
+                        Jalan M. Yusuf, Kel. Tebang, Kec. Palmatak, Kab. Kepulauan Anambas Prov. Kepulauan Riau
+                    </h6>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+
+    <h2 class="text-center mb-3">{{ $title }}</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="table-border">No</th>
+                <th class="table-border">Nama</th>
+                <th class="table-border text-center">Status Kelulusan</th>
+                <th class="table-border text-center">Nilai</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse ($data as $item)
+                <tr>
+                    <th class="table-border table-padding">{{ $loop->index + 1 }}</th>
+                    <th class="table-border table-padding">{{ $item->dataDiri->nama }}</th>
+                    <th class="table-border table-padding text-center">
+                        {{ $item->verifikasi == 0 ? 'Belum verifikasi' : 'Sudah Verifikasi' }}
+                    </th>
+                    <th class="table-border table-padding text-center">
+                        {{ $item->dataDiri->nilai_ijazah == 0 ? '-' : $item->dataDiri->nilai_ijazah }}
+                    </th>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="4"class="table-border table-padding">
+                        <h4 class="text-center">Data Kosong</h4>
+                    </td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
+    <div class="last">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td>
+                        <h6>Kepala Sekolah</h6>
+                        <br>
+                        <br>
+                        <br>
+                        <h6><u>.......................................</u></h6>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <div id="app">
-        <div class="row">
-            <div class="col-12">
-                <h1 class="text-center">SMA Negeri 1 Palmatak</h1>
-                <h4 class="text-center">
-                    Jalan M. Yusuf, Kel. Tebang, Kec. Palmatak, Kab. Kepulauan Anambas Prov. Kepulauan Riau
-                </h4>
-                <hr>
-
-                <h2 class="text-center mb-3">{{ $title }}</h2>
-                <table class="table table-border">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Status Kelulusan</th>
-                            <th>Nilai</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($data as $item)
-                            <tr>
-                                <th>{{ $loop->index + 1 }}</th>
-                                <th>{{ $item->dataDiri->nama }}</th>
-                                <th>{{ $item->verifikasi == 0 ? 'Belum verifikasi' : 'Sudah Verifikasi' }}</th>
-                                <th>{{ $item->dataDiri->nilai_ijazah == 0 ? '-' : $item->dataDiri->nilai_ijazah }}</th>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="4">
-                                    <h4>Data Kosong</h4>
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-
 </body>
 
 </html>
