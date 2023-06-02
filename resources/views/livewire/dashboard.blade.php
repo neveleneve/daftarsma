@@ -2,24 +2,35 @@
     @push('blade')
         @include('layouts.usernav')
     @endpush
+    @if ($checkuserverified == 1)
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <div class="alert alert-success" role="alert">
+                    <b>
+                        Selamat! Data kamu sudah diverifikasi! Silahkan cetak bukti pendaftaran <a class="text-success"
+                            href="{{ route('pendaftaran') }}">disini</a> untuk tahapan seleksi
+                        selanjutnya.
+                    </b>
+                </div>
+            </div>
+        </div>
+    @endif
     @if (Auth::user()->level == '0')
-        <div class="row justify-content-center mb-3">
-            <div class="row justify-content-center mb-0 mb-md-3">
-                <div class="col-10 mb-3 mb-md-0">
-                    <div class="card">
-                        <div class="card-header bg-primary text-light">
-                            <h5 class="fw-bold">Jumlah Pendaftar Calon Siswa T.A. {{ $tahunajaranselected }}</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="h3 m-2 font-weight-bold text-gray-800">
-                                        {{ $pendaftar }} Pendaftar
-                                    </div>
+        <div class="row justify-content-center mb-0 mb-md-3">
+            <div class="col-10 mb-3 mb-md-0">
+                <div class="card">
+                    <div class="card-header bg-primary text-light">
+                        <h5 class="fw-bold">Jumlah Pendaftar Calon Siswa T.A. {{ $tahunajaranselected }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="h3 m-2 font-weight-bold text-gray-800">
+                                    {{ $pendaftar }} Pendaftar
                                 </div>
-                                <div class="col-auto m-2">
-                                    <i class="fas fa-users fa-4x text-gray-300"></i>
-                                </div>
+                            </div>
+                            <div class="col-auto m-2">
+                                <i class="fas fa-users fa-4x text-gray-300"></i>
                             </div>
                         </div>
                     </div>

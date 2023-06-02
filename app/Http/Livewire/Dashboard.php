@@ -3,6 +3,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\DataDiri;
+use App\Models\UserDaftar;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -12,6 +14,9 @@ class Dashboard extends Component
     public $tahunajaranselected;
     public $pendaftar;
     public $verifikasi;
+    public $username;
+
+    public $checkuserverified = null;
 
     public function render()
     {
@@ -31,6 +36,8 @@ class Dashboard extends Component
 
     public function mount()
     {
+        $this->username = Auth::user();
+        $this->checkuserverified = $this->checkUserVerifiedStatus($this->username['username']);
         $this->tahunajaran = $this->tahunajaran();
         $this->tahunajaranselected = $this->tahunajaran[0];
     }
@@ -50,5 +57,12 @@ class Dashboard extends Component
             $tahunajar[$i] = $th1 . '-' . $th2;
         }
         return $tahunajar;
+    }
+
+    public function checkUserVerifiedStatus($iddaftar)
+    {
+        $data = UserDaftar::where('username', $iddaftar)->get();
+
+        return $data[0]['verifikasi'];
     }
 }
