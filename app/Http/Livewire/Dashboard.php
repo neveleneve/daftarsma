@@ -14,7 +14,6 @@ class Dashboard extends Component
     public $tahunajaranselected;
     public $pendaftar;
     public $verifikasi;
-    public $username;
 
     public $checkuserverified = null;
 
@@ -36,8 +35,8 @@ class Dashboard extends Component
 
     public function mount()
     {
-        $this->username = Auth::user();
-        $this->checkuserverified = $this->checkUserVerifiedStatus($this->username['username']);
+        $username = Auth::user();
+        $this->checkuserverified = $this->checkUserVerifiedStatus($username['username']);
         $this->tahunajaran = $this->tahunajaran();
         $this->tahunajaranselected = $this->tahunajaran[0];
     }
